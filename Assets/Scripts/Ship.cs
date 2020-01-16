@@ -17,6 +17,7 @@ public class Ship : MonoBehaviour
     private float invulTimer;
     private float shipMaxXPosition;
     private float shipMaxYPosition;
+    private float buttonXAxisCorrection;
     private GameObject shieldClone;
 
     public GameObject lazerShot;
@@ -41,8 +42,9 @@ public class Ship : MonoBehaviour
     private void Awake()
     {      
 
-        shipMaxXPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width, 0f, 0f)).x;
-        shipMaxYPosition = mainCamera.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y;        
+        shipMaxXPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.9f, 0f, 0f)).x;
+        shipMaxYPosition = mainCamera.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y;
+        buttonXAxisCorrection = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.9f, 0f, 0f)).x;
 
         Ship_Idle.SetActive(true);
         Ship_Up.SetActive(false);
@@ -54,6 +56,9 @@ public class Ship : MonoBehaviour
 
     private void Update()
     {
+
+        //Debug.Log("y: " + joystick.Direction.y.ToString());
+        //Debug.Log("x: " + joystick.Direction.x.ToString());
         //invul time
         if (invulTimer > 0)
         {
@@ -69,7 +74,7 @@ public class Ship : MonoBehaviour
         shootTimer += Time.deltaTime;
 
         //used for movement
-        if (joystick.Direction.y > 0)
+        if (joystick.Direction.y > 0.15)
         {         
             Vector2 newPosition = new Vector2(0f, 1f) * Time.deltaTime * speed;
             transform.Translate(newPosition, Space.World);
@@ -80,9 +85,13 @@ public class Ship : MonoBehaviour
             ActivateAndMoveObject(Ship_Up, transform.position);
 
             ShootGuns(lazerShot, gunPosition_Up1.transform.position, gunPosition_Up2.transform.position);
-            MoveSideways();
+
+            if (Mathf.Abs(joystick.Direction.x) > 0.15)
+            {
+                MoveSideways();
+            } 
         }
-        else if (joystick.Direction.y < 0)
+        else if (joystick.Direction.y < -0.15)
         {           
             Vector2 newPosition = new Vector2(0f, -1f) * Time.deltaTime * speed;
             transform.Translate(newPosition, Space.World);
@@ -93,17 +102,24 @@ public class Ship : MonoBehaviour
             ActivateAndMoveObject(Ship_Down, transform.position);
 
             ShootGuns(lazerShot, gunPosition_Down1.transform.position, gunPosition_Down2.transform.position);
-            MoveSideways();
+
+            if (Mathf.Abs(joystick.Direction.x) > 0.15)
+            {
+                MoveSideways();
+            }
         }
         else
         {           
-
             Ship_Up.SetActive(false);
             Ship_Down.SetActive(false);
             ActivateAndMoveObject(Ship_Idle, transform.position);
 
             ShootGuns(lazerShot, gunPosition_Idle1.transform.position, gunPosition_Idle2.transform.position);
-            MoveSideways();
+
+            if (Mathf.Abs(joystick.Direction.x) > 0.15)
+            {
+                MoveSideways();
+            }
         }
         
         //detects touch of red buttons coords for shooting
@@ -115,7 +131,7 @@ public class Ship : MonoBehaviour
 
                 Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
                 
-                if ((touchPosition.x > shipMaxXPosition - 1) && (touchPosition.x < shipMaxXPosition + 0.5) &&
+                if ((touchPosition.x > shipMaxXPosition) && (touchPosition.x < shipMaxXPosition + buttonXAxisCorrection) &&
                     (touchPosition.y > -shipMaxYPosition) && (touchPosition.y < -shipMaxYPosition + 1.5))
                 {
                     buttonAPressed = true;
