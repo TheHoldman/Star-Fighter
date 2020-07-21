@@ -42,9 +42,9 @@ public class Ship : MonoBehaviour
     private void Awake()
     {      
 
-        shipMaxXPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.9f, 0f, 0f)).x;
+        shipMaxXPosition = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.87f, 0f, 0f)).x;
         shipMaxYPosition = mainCamera.ScreenToWorldPoint(new Vector3(0f, Screen.height, 0f)).y;
-        buttonXAxisCorrection = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.9f, 0f, 0f)).x;
+        buttonXAxisCorrection = mainCamera.ScreenToWorldPoint(new Vector3(Screen.width * 0.85f, 0f, 0f)).x;
 
         Ship_Idle.SetActive(true);
         Ship_Up.SetActive(false);
@@ -59,6 +59,8 @@ public class Ship : MonoBehaviour
 
         //Debug.Log("y: " + joystick.Direction.y.ToString());
         //Debug.Log("x: " + joystick.Direction.x.ToString());
+        //Debug.Log("y: " + mainCamera.ScreenToWorldPoint(new Vector3(GameObject.Find("ButtonA").transform.position.x, GameObject.Find("ButtonA").transform.position.y, GameObject.Find("ButtonA").transform.position.z)).y.ToString());
+        //Debug.Log("x: " + mainCamera.ScreenToWorldPoint(new Vector3(GameObject.Find("ButtonA").transform.position.x, GameObject.Find("ButtonA").transform.position.y, GameObject.Find("ButtonA").transform.position.z)).x.ToString());
         //invul time
         if (invulTimer > 0)
         {
@@ -123,21 +125,31 @@ public class Ship : MonoBehaviour
         }
         
         //detects touch of red buttons coords for shooting
-        if (Input.touchCount > 0)
-        {
-            for (int i = 0; i < Input.touchCount; i++)
-            {
-                Touch touch = Input.GetTouch(i);
+        //if (Input.touchCount > 0)
+        //{
+        //    for (int i = 0; i < Input.touchCount; i++)
+        //    {
+        //        Touch touch = Input.GetTouch(i);
 
-                Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);
-                
-                if ((touchPosition.x > shipMaxXPosition) && (touchPosition.x < shipMaxXPosition + buttonXAxisCorrection) &&
-                    (touchPosition.y > -shipMaxYPosition) && (touchPosition.y < -shipMaxYPosition + 1.5))
-                {
-                    buttonAPressed = true;
-                }
-            }
-        }        
+        //        Vector2 touchPosition = Camera.main.ScreenToWorldPoint(touch.position);                
+
+        //        if ((touchPosition.x > shipMaxXPosition) && (touchPosition.x < shipMaxXPosition + buttonXAxisCorrection) &&
+        //            (touchPosition.y > -shipMaxYPosition) && (touchPosition.y < -shipMaxYPosition + 1.5))
+        //        {
+        //            buttonAPressed = true;
+        //        }
+        //    }
+        //}        
+    }
+
+    public void ButtonAPressed()
+    {
+        buttonAPressed = true;
+    }
+
+    public void ButtonAReleased()
+    {
+        buttonAPressed = false;
     }
 
     //detects shooting
@@ -150,7 +162,7 @@ public class Ship : MonoBehaviour
                 Instantiate(shot, gunPosition1, new Quaternion());
                 Instantiate(shot, gunPosition2, new Quaternion());
                 shootTimer = 0;
-                buttonAPressed = false;
+                //buttonAPressed = false;
             }
         }
     }    

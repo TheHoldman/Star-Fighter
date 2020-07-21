@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5484032015836451738}
   - component: {fileID: 5484032015836451739}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: GunPosition
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -45,6 +45,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -94,7 +95,7 @@ GameObject:
   - component: {fileID: 5484032017090650299}
   - component: {fileID: 5484032017090650298}
   - component: {fileID: 5484032017090650297}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Cyclops
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -109,7 +110,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5484032017090650296}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.88, y: 4.84, z: -5.2755265}
+  m_LocalPosition: {x: 7.88, y: 4.84, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 5484032015836451738}
@@ -130,6 +131,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,11 +236,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5484032017090650298}
-  life: 2
+  life: 3
   collisionDamage: 1
   scoreReward: 50
   speed: 2
-  verticalDirectionChangeTimer: 1.5
+  verticalDirectionChangeTimer: 0.7
   shootTimer: 1
   startGoingDown: 1
   projectile: {fileID: 8705259116636550626, guid: 51ec980ca4be86f40a6e307a28f86ccb,
