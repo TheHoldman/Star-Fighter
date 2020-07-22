@@ -30,11 +30,17 @@ public class Projectile : MonoBehaviour
     {
         if (isEnemyProjectile == false)
         {
-            ShootingEnemies enemy = hitInfo.GetComponent<ShootingEnemies>();
+            ShootingEnemies shootingEnemy = hitInfo.GetComponent<ShootingEnemies>();
+            FishBoss fishBoss = hitInfo.GetComponent<FishBoss>();
 
-            if (enemy != null)
+            if (shootingEnemy != null)
             {
-                enemy.Damage(damage);
+                shootingEnemy.Damage(damage);
+                AnimateAndDestroyProjectile();
+            }
+            else if (fishBoss != null)
+            {
+                fishBoss.Damage(damage);
                 AnimateAndDestroyProjectile();
             }
             else if (hitInfo.tag == "Ship" || hitInfo.tag == "Shield" || hitInfo.tag == "Powerup") { }

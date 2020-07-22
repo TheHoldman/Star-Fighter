@@ -96,7 +96,7 @@ public class ShootingEnemies : MonoBehaviour
     {
         life -= damage;
 
-        if (life == 0)
+        if (life <= 0)
         {
             GameObject cloneDeath =  Instantiate(deathAnimation, transform.position, new Quaternion());
             Destroy(cloneDeath, 2f);

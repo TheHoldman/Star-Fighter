@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 5484032017090650298}
-  life: 3
+  life: 5
   collisionDamage: 1
   scoreReward: 50
   speed: 2
